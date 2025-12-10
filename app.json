@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Target",
+    "slug": "Target",
+    "version": "1.0.0",
+    "android": {
+      "edgToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "package": "com.jhonatas.target",
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3d44cd"
+      },
+      "package": "com.jhonatas.target"
+    },
+    "ios": {
+      "bundleIdentifier": "com.jhonatas.target",
+      "icon": "./assets/ios-icon.png"
+    }
+  }
+}
