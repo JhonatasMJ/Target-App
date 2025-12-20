@@ -6,6 +6,7 @@ import {
   Inter_500Medium,
   Inter_700Bold,
 } from "@expo-google-fonts/inter";
+import { Loading } from "@/components/Loading";
 
 /* Pega todas as rotas da pasta app e passa para o Slot */
 /* Posso definir diretamente o tipo de navegação 'Tabs' ou 'Stack' */
@@ -18,7 +19,7 @@ export default function Layout() {
   });
 
     if (!fontsLoaded) { 
-        return null;
+        return <Loading/>
     }
 
   return (
