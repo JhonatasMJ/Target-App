@@ -5,7 +5,8 @@ export default function Index() {
     
   return (
     <View style={{ flex: 1, }}>
-      <HomeHeader />
+      <HomeHeader data={{total: "R$2.680,00"}} />
     </View>
   );
 }
+  
