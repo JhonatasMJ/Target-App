@@ -6,6 +6,7 @@ import { Props } from "@/types/HomeHeader";
 import { Separator } from "../Separator";
 import { Summary } from "../Summary";
 
+
 export function HomeHeader({ data }: Props) {
   return (
     <LinearGradient
@@ -20,12 +21,12 @@ export function HomeHeader({ data }: Props) {
 
       <View style={styles.summary}>
         <Summary
-          data={{ label: "Entradas", value: "R$ 6,184.90" }}
+          data={data.input}
           icon={{ name: "ArrowUp", size: 16, color: colors.green[500] }}
         />
          <Summary
           isLeft={true}
-          data={{ label: "Saídas", value: "-R$ 883.65" }}
+          data={data.output}
           icon={{ name: "ArrowDown", size: 16, color: colors.red[400] }}
         />
       </View>

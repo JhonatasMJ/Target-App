@@ -1,6 +1,6 @@
 import * as LucideIcon from "lucide-react-native/icons";
 
-type SummaryProps = {
+export type SummaryProps = {
     label: string;
     value: string;
 }
