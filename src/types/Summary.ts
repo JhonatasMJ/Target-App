@@ -5,7 +5,7 @@ export type SummaryProps = {
     value: string;
 }
 
-type IconProps = {
+export type IconProps = {
     name: keyof typeof LucideIcon;
     color: string;
     size: number
