@@ -1,14 +1,26 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { PageHeader } from "@/components/PageHeader";
+import { Progress } from "@/components/Progress";
+import {useLocalSearchParams } from "expo-router";
+import { View } from "react-native";
+
+const details = {
+  current: "R$ 580,00",
+  target: "R$ 3.000,00",
+  percentage: 50,
+}
 
 export default function InProgress() {
   const params = useLocalSearchParams();
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>ID: {params.id}</Text>
-      <TouchableOpacity onPress={() => router.back()}>
-        <Text>Voltar ao Início</Text>
-      </TouchableOpacity>
+    <View style={{ flex: 1, padding: 24, gap:32}}>
+      <PageHeader title="Apple Watch" rightButton={
+        {
+          
+          onPress: () => {},
+        }
+      }/>
+
+      <Progress data={details}/>
     </View>
   );
 }
