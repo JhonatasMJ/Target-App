@@ -1,10 +1,11 @@
+import { Button } from "@/components/Button";
 import { List } from "@/components/List";
 import { PageHeader } from "@/components/PageHeader";
 import { Progress } from "@/components/Progress";
 import { Transaction } from "@/components/Transaction";
 import { TransactionProps } from "@/types/Transaction";
 import { TransactionTypes } from "@/utils/TransactionTypes";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 
 const details = {
@@ -44,11 +45,16 @@ export default function InProgress() {
 
       <List
         title="Transações"
-        emptyMessage="Nenhuma transação."
+        emptyMessage="Nenhuma transação. Toque em nova transação para guardar seu primeiro dinheiro aqui."
         data={transactions}
         renderItem={({ item }) => (
           <Transaction data={item} onRemove={() => {}} />
         )}
+      />
+
+      <Button
+        title="Nova Transação"
+        onPress={() => router.navigate(`/transaction/${params.id}`)}
       />
     </View>
   );
