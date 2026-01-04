@@ -5,6 +5,5 @@ export type PageHeaderProps = {
     subTitle?: string
     rightButton?: {
         onPress: () => void
-        icon: IconProps
     }
 }
