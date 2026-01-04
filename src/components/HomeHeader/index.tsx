@@ -25,7 +25,7 @@ export function HomeHeader({ data }: Props) {
           icon={{ name: "ArrowUp", size: 16, color: colors.green[500] }}
         />
          <Summary
-          isLeft={true}
+          isRight={true}
           data={data.output}
           icon={{ name: "ArrowDown", size: 16, color: colors.red[400] }}
         />

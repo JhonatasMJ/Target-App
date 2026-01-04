@@ -14,5 +14,5 @@ export type IconProps = {
 export type Props = {
     data: SummaryProps
     icon: IconProps
-    isLeft?: boolean
+    isRight?: boolean
 }
