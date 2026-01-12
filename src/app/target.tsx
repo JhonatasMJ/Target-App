@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import { Input } from "@/components/Input";
 import { PageHeader } from "@/components/PageHeader";
+import { useTarget } from "@/database/useTarget";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Alert, View } from "react-native";
@@ -11,35 +12,35 @@ export default function Target() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
-  const params = useLocalSearchParams<{id?: string}>();
+  const params = useLocalSearchParams<{ id?: string }>();
+  const targetDataBase = useTarget();
   function handleSave() {
-    if(!name.trim() || amount <= 0 ) {
+    if (!name.trim() || amount <= 0) {
       return Toast.show({ type: "error", text1: "Meta inválida" });
     }
 
     setIsProcessing(true);
 
     /* Se carrega id vai ser UPDATE */
-    if(params.id) {
-
+    if (params.id) {
     } else {
       create();
     }
 
-    async function create () {
+    async function create() {
+      await targetDataBase.create({ name, amount });
       try {
-         Alert.alert("Nova Meta", "Meta criada com sucesso!",[
+        Alert.alert("Nova Meta", "Meta criada com sucesso!", [
           {
             text: "OK",
-            onPress: () => router.back()
-          }
-         ]);
+            onPress: () => router.back(),
+          },
+        ]);
       } catch {
         Alert.alert("Erro", "Nao foi possivel criar a meta");
         setIsProcessing(false);
       }
     }
-
   }
 
   return (
