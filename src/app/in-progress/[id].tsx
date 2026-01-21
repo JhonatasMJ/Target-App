@@ -77,7 +77,7 @@ export default function InProgress() {
       <PageHeader
         title={details.name}
         rightButton={{
-          onPress: () => {},
+          onPress: () => router.navigate(`/target?id=${params.id}`),
         }}
       />
 

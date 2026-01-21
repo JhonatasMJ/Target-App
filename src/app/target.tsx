@@ -4,7 +4,7 @@ import { Input } from "@/components/Input";
 import { PageHeader } from "@/components/PageHeader";
 import { useTarget } from "@/database/useTarget";
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -23,6 +23,7 @@ export default function Target() {
 
     /* Se carrega id vai ser UPDATE */
     if (params.id) {
+      
     } else {
       create();
     }
@@ -40,6 +41,24 @@ export default function Target() {
         Alert.alert("Erro", "Nao foi possivel criar a meta");
         setIsProcessing(false);
       }
+    }
+  }
+
+  /* Só chama a função caso tenha o id */
+  useEffect(() =>{
+    if (params.id) {
+      fetchDetails(Number(params.id))
+    }
+  },[params.id])
+
+  async function fetchDetails(id:number) {
+    try {
+      const response = await targetDataBase.show(id);
+      setName(response.name);
+      setAmount(response.amount);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível carregar os detalhes da meta");
+      console.log(error);
     }
   }
 
