@@ -5,6 +5,7 @@ import { Loading } from "@/components/Loading";
 import { Target } from "@/components/Target";
 import { useTarget } from "@/database/useTarget";
 import { TargetProps } from "@/types/Target";
+import { numberToCurrency } from "@/utils/numberToCurrency";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert, StatusBar, View } from "react-native";
@@ -15,12 +16,10 @@ const summaryData = {
   output: { label: "Saídas", value: "-R$ 883.65" },
 };
 
-
-
 export default function Index() {
   const [isFetching, setIsFetching] = useState(true);
   const targetDatabase = useTarget();
-  const [targets,setTargets] = useState<TargetProps>([]);
+  const [targets,setTargets] = useState<TargetProps[]>();
 
   async function fetchTargets ():Promise<TargetProps[]> {
     try {
@@ -29,9 +28,9 @@ export default function Index() {
        return response.map((item) => ({
           id: String(item.id),
           name: item.name,
-          current: String(item.current),
+          current: numberToCurrency(item.current),
           percentage: item.percentage.toFixed(0) + "%",
-          target: String(item.amount),
+          target: numberToCurrency(item.amount),
        }))
 
     } catch (error) {
@@ -39,7 +38,6 @@ export default function Index() {
       console.log(error);
     }
   }
-
 
   async function fetchData () {
     const targetDataPromisse = fetchTargets();
