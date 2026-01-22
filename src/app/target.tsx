@@ -23,11 +23,30 @@ export default function Target() {
 
     /* Se carrega id vai ser UPDATE */
     if (params.id) {
-      
+      update();
     } else {
       create();
     }
 
+    async function update() {
+      try {
+        await targetDataBase.update({
+          id: Number(params.id),
+          name,
+          amount,
+        })
+        Alert.alert("Meta Atualizada", "Meta atualizada com sucesso!", [
+          {
+            text: "OK",
+            onPress: () => router.back(),
+          }
+        ])
+      } catch (error) {
+        Alert.alert("Erro", "Nao foi possivel atualizar a meta");
+        console.log(error);
+        setIsProcessing(false);
+      }
+    }
     async function create() {
       await targetDataBase.create({ name, amount });
       try {
