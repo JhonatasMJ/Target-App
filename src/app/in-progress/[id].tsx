@@ -9,6 +9,7 @@ import { TransactionProps } from "@/types/Transaction";
 import { numberToCurrency } from "@/utils/numberToCurrency";
 import { TransactionTypes } from "@/utils/TransactionTypes";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { Pencil } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { Alert, View } from "react-native";
 
@@ -77,6 +78,7 @@ export default function InProgress() {
       <PageHeader
         title={details.name}
         rightButton={{
+          icon: Pencil,
           onPress: () => router.navigate(`/target?id=${params.id}`),
         }}
       />

@@ -4,6 +4,7 @@ import { Input } from "@/components/Input";
 import { PageHeader } from "@/components/PageHeader";
 import { useTarget } from "@/database/useTarget";
 import { router, useLocalSearchParams } from "expo-router";
+import {  Trash2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import Toast from "react-native-toast-message";
@@ -81,11 +82,36 @@ export default function Target() {
     }
   }
 
+  function handleRemove () {
+    if (!params.id) return;
+
+    Alert.alert("Remover", "Deseja realmente remover?", [
+      {text: "Não", style: "cancel"},
+      {text: "Sim", onPress: remove}
+    ])
+  }
+
+  async function remove() {
+    try {
+      setIsProcessing(true);
+      await targetDataBase.remove(Number(params.id));
+      Alert.alert("Meta Removida", "Meta removida com sucesso!",[
+        {text: "Ok", onPress: () => router.replace("/")}
+      ]);
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível remover a meta");
+      console.log(error);
+    }
+  }
+
   return (
     <View style={{ flex: 1, padding: 24 }}>
       <PageHeader
         title="Meta"
         subTitle="Economize para alcançar sua meta financeira."
+        rightButton={
+          params.id ? {icon: Trash2, onPress: handleRemove} : undefined
+        }
       />
       <View style={{ marginTop: 32, gap: 24 }}>
         <Input

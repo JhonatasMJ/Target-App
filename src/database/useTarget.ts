@@ -83,9 +83,15 @@ export function useTarget() {
       })
   }
 
+  /* Deleto a meta onde o id for o mesmo do parametro */
+  async function remove(id:number) {
+    await database.runAsync("DELETE FROM targets WHERE id = ?", id);
+  }
+
   return {
     show,
     create,
+    remove,
     update,
     listBySavedValue
   };
