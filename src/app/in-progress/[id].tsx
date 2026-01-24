@@ -70,6 +70,27 @@ export default function InProgress() {
     setIsFetching(false);
   }
 
+  function handleTransactionRemove (id: string) { 
+        Alert.alert("Remover", "Deseja remover essa transação?", [
+          {text: "Não", style: "cancel"},
+          {
+            text: "Sim",
+            onPress: () => transactionRemove(id)
+          }
+        ])
+  }
+
+  async function transactionRemove(id: string) { 
+    try {
+      await transactionsDatabase.remove(Number(id));
+      fetchData();
+      Alert.alert("Sucesso", "Transação removida com sucesso");
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível remover a transação");
+      console.log(error);
+    }
+  }
+
   /* Recarrega a lista toda vez que eu entrar na tela novamente, recomendado usar com useCallback */
     useFocusEffect(
       useCallback(() =>{
@@ -98,7 +119,7 @@ export default function InProgress() {
         emptyMessage="Nenhuma transação. Toque em nova transação para guardar seu primeiro dinheiro aqui."
         data={transactions}
         renderItem={({ item }) => (
-          <Transaction data={item} onRemove={() => {}} />
+          <Transaction data={item} onRemove={() => handleTransactionRemove(item.id)} />
         )}
       />
 
