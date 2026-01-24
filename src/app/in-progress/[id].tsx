@@ -13,6 +13,7 @@ import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { Pencil } from "lucide-react-native";
 import { useCallback, useState } from "react";
 import { Alert, View } from "react-native";
+import dayjs from "dayjs";
 
 
 export default function InProgress() {
@@ -50,7 +51,7 @@ export default function InProgress() {
         response.map((item) => ({
           id: String(item.id),
           value: numberToCurrency(item.amount),
-          date: String(item.created_at),
+          date: dayjs(item.created_at).format("DD/MM/YYYY [ás] HH:mm"),
           description: item.observation,
           type: item.amount < 0 ? TransactionTypes.Output : TransactionTypes.Input,
         }))
