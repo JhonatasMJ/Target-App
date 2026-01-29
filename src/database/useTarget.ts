@@ -33,9 +33,9 @@ export function useTarget() {
   }
 
 
-  /* Lista todas as metas da tabela, faz um join com a tabela transactions para pegar o current, e caso o current seja null ele retorna 0, para pegar o percentage vai dividir o current pelo amount, caso o amount seja 0 ele retorna 0 e ordena do maior pro menor current */
+  /* Lista todas as metas da tabela, faz um join com a tabela transactions para pegar o current, e caso o current seja null ele retorna 0, para pegar o percentage vai dividir o current pelo amount, caso o amount seja 0 ele retorna 0 e ordena do maior pro menor com % */
 
-  function listBySavedValue () {
+  function listByPercentageValue () {
     return database.getAllAsync<TargetResponse>(`
       SELECT
         targets.id,
@@ -48,7 +48,7 @@ export function useTarget() {
       FROM targets
       LEFT JOIN transactions ON targets.id = transactions.target_id
       GROUP BY targets.id, targets.name, targets.amount
-      ORDER BY current DESC
+      ORDER BY percentage DESC
       `)
   }
 
@@ -93,6 +93,6 @@ export function useTarget() {
     create,
     remove,
     update,
-    listBySavedValue
+    listByPercentageValue
   };
 }

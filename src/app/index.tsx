@@ -4,26 +4,24 @@ import { List } from "@/components/List";
 import { Loading } from "@/components/Loading";
 import { Target } from "@/components/Target";
 import { useTarget } from "@/database/useTarget";
+import { useTransactions } from "@/database/useTransactions";
+import { homeHeaderProps } from "@/types/HomeHeader";
 import { TargetProps } from "@/types/Target";
 import { numberToCurrency } from "@/utils/numberToCurrency";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert, StatusBar, View } from "react-native";
 
-const summaryData = {
-  total: "R$2.680,00",
-  input: { label: "Entradas", value: "R$ 6,184.90" },
-  output: { label: "Saídas", value: "-R$ 883.65" },
-};
-
 export default function Index() {
+  const [summary, setSummary] = useState<homeHeaderProps>()
   const [isFetching, setIsFetching] = useState(true);
   const targetDatabase = useTarget();
   const [targets,setTargets] = useState<TargetProps[]>();
+  const transactionDatabase = useTransactions();
 
   async function fetchTargets ():Promise<TargetProps[]> {
     try {
-      const response = await targetDatabase.listBySavedValue();
+      const response = await targetDatabase.listByPercentageValue();
 
        return response.map((item) => ({
           id: String(item.id),
@@ -39,12 +37,35 @@ export default function Index() {
     }
   }
 
+/* Pega dados do resumo */
+async function fetchSummary ():Promise<homeHeaderProps> {
+  try {
+    const response = await transactionDatabase.summary();
+    return {
+      total: numberToCurrency(response.input - response.output),
+      input: {
+        label: "Entradas",
+        value: numberToCurrency(response.input),
+      },
+        output: {
+        label: "Saídas",
+        value: numberToCurrency(response.output),
+      }
+    }
+  } catch (error) {
+    Alert.alert("Erro", "Não foi possível carregar o resumo");
+    console.log(error);
+}
+}
+
   async function fetchData () {
     const targetDataPromisse = fetchTargets();
+    const fetchDataSummaryPromise = fetchSummary()
 
     /* Pega todas as promessas e centrliza em um lugar só */
-    const [targetData] = await Promise.all([targetDataPromisse])
+    const [targetData, dataSummary ] = await Promise.all([targetDataPromisse, fetchDataSummaryPromise]);
     setTargets(targetData);
+    setSummary(dataSummary);
     setIsFetching(false);
   }
 
@@ -63,7 +84,7 @@ export default function Index() {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="light-content"/>
-      <HomeHeader data={summaryData} />
+      <HomeHeader data={summary} />
       <List
         title="Metas"
         data={targets}
