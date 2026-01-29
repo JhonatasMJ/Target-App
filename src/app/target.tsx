@@ -6,7 +6,7 @@ import { useTarget } from "@/database/useTarget";
 import { router, useLocalSearchParams } from "expo-router";
 import {  Trash2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, StatusBar, View } from "react-native";
 import Toast from "react-native-toast-message";
 
 export default function Target() {
@@ -106,6 +106,7 @@ export default function Target() {
 
   return (
     <View style={{ flex: 1, padding: 24 }}>
+      <StatusBar barStyle="dark-content"/>
       <PageHeader
         title="Meta"
         subTitle="Economize para alcançar sua meta financeira."
