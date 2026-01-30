@@ -6,8 +6,8 @@
 
 ## 📚 Informações sobre o projeto
 
-* O projeto se resume em um aplicativo de gerenciamento de gastos e metas, podendo criar uma meta, e adicioar uma transação dentro dessa meta, esse projeto foi realizado através do módulo de fundamentos da Formação React Native da [Rocketseat](https://www.rocketseat.com.br/).
-
+* O projeto consiste em um aplicativo de gerenciamento de gastos e metas financeiras, onde o usuário pode criar metas e registrar transações (entradas e saídas) associadas a cada meta.
+O desenvolvimento foi realizado durante o módulo de Fundamentos da Formação React Native da [Rocketseat](https://www.rocketseat.com.br/).
 &nbsp;
 
 ## 💻 Funcionalidades do projeto
