@@ -1,6 +1,6 @@
 # TargetApp 🎯💵
 
-<img src="./src/assets/comprar.png" />
+<img src="./assets/Target.png" />
 
 &nbsp;
 
